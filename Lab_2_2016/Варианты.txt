@@ -1,0 +1,14 @@
+Варианты заданий
+
+1 - f(x)=x;
+2 - f(x)=x^2;
+3 - f(x)=x^3;
+4 - f(x)=x^4;
+5 - f(x)=abs(x);
+6 - f(x)=abs(sin(x));
+7 - f(x)=x*sin(x));
+8 - f(x)=x*cos(x));
+9 - f(x)=exp(a*x);
+10 - f(x)=ln(2*cos(x/2));
+11 - f(x)=ln[tg(x/2)]/2;
+12 - f(x)=sign[sin(x)];

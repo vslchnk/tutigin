@@ -1,0 +1,45 @@
+%Программа корреляционного сравнения полноформатного
+% фотоизображения с эталонными
+clc;
+msgbox('Введите  номер полноформатного фотоизображения','Выбор номера изображения','warn');
+answer=input('Введите номер фотоизображения  ','s');
+t=char(answer);
+msgbox('Введите  номер группы эталонов ','Выбор группы эталонов','warn');
+answer=input('Введите номер группы эталонов  ','s');
+password=char(answer);
+path='D:\LifeCamFiles\P1\';
+fname=strcat(path,t,'.tif');
+I=imread(fname);
+
+%Изменение масштаба полноформатного изображения по нормальному закону
+%100 - количество случайных значений, 0,05 - СКО, 
+% макс. отклонение с доверит. вероятностью 0,95 - 3*СКО
+k=abs(1.0+ 0.05*(randn(size(100))));
+J=imresize(I,k,'bicubic');%изменение масштаба 
+X1=imresize(J,0.5,'bicubic');
+figure;imshow(X1);
+path='D:\LifeCamFiles\';
+h = waitbar(0,'Please wait...');
+for i=1:10        
+        t=num2str(78+i);        
+        fname=strcat(path,password,t,'.tif'); 
+        X2=imread(fname);     
+        figure;imshow(X2);
+        % изменен порядок сравнения: X2 с X1
+        ncorr = normxcorr2(X2(:,:,1),X1(:,:,1)); 
+       % figure, surf(ncorr), shading flat;
+        max_c = max(abs(ncorr(:)));       
+        y(i)=max_c;
+        waitbar(i/16)
+end
+  
+set(0,'ShowHiddenHandles','on')%автоматическое удаление всех figures
+delete(get(0,'Children'))%автоматическое удаление всех figures
+y(9)=0;
+corr=y;
+max_corr=max(y)
+set(0,'ShowHiddenHandles','on')%автоматическое удаление всех figures
+
+close all;
+clear;
+ 
