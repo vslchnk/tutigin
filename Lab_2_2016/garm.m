@@ -28,15 +28,23 @@ kp=4.1; %количество периодов гармонической функции
 
 T=pi;%Значение T (произвольное)
 N=1024;%количество значений функции на интервале [0,T]
-M=12;%количество членов ряда Фурье
+M=60;%количество членов ряда Фурье
 %p=1;%показатель степени функции x^p 
-kp=4.1;%количество периодов гармонического сигнала
+kp=4.2;%количество периодов гармонического сигнала
 
-SKO_procM=zeros(1,M);
-for i=1:M
-    [f, C0, C, Cab, y, SKO_procM(i)] = myfunc_comp (N, i, T, kp);
+% SKO_procM=zeros(1,M);
+% for i=1:M
+%     [f, C0, C, Cab, y, SKO_procM(i)] = myfunc_comp (N, i, T, kp);
+% end
+% i=1:M;
+% plot(i, SKO_procM);
+
+M = 30;
+SKO_procM=zeros(1,N);
+for i=1:N
+    [f, C0, C, Cab, y, SKO_procM(i)] = myfunc_comp (i, M, T, kp);
 end
-i=1:M;
+i=1:N;
 plot(i, SKO_procM);
 
 %mygraph(N, K, Sa, Sab, f, y);
