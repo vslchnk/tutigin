@@ -49,6 +49,6 @@ fi_calc(k)=atan(imag(C(k))/real(C(k)));
 end
 result_fi=fi_calc(3)
 
-%pause
+pause
 close all;
 clear;
