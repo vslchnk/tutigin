@@ -1,8 +1,8 @@
-function [f, C0, C, Cab, y, CKO_proc] = myfunc_comp ( N, M, T, kp)            
+function [f, C0, C, Cab, y, SKO] = myfunc_comp ( N, M, T, kp)            
     C0=0;    
     for i=1:N+1 %????????? ????????? ???????       
+        t=2*pi*(i-1)/N;    
         f(i)=sin(2*pi*kp*(i-1)/N); % ????????????? ???????  
-        C0=C0+f(i);
     end
 
     C0=C0*(2/N);
@@ -35,15 +35,10 @@ function [f, C0, C, Cab, y, CKO_proc] = myfunc_comp ( N, M, T, kp)
     end
 
     
-    for i=2:N
-       dy(i)=real(y(i))-f(i);  
+    for i=1:N+1
+       DZ(i)=abs(f(i)-real(y(i)));    
     end
     
-    dy_proc=dy/(max(f)-min(f))*100;
-    CKO=std(dy);
-    CKO_proc=std(dy_proc)%СКО в процентах
-
-% pause
-% close all;
-% clear;    
+    DZ1=DZ/max(f)*100;
+    SKO=std(DZ1)    
 end
