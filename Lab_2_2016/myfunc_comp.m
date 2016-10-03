@@ -43,7 +43,7 @@ function [f, C0, C, Cab, y, CKO_proc] = myfunc_comp ( N, M, T, kp)
     CKO=std(dy);
     CKO_proc=std(dy_proc)%СКО в процентах
 
-pause
-close all;
-clear;    
+% pause
+% close all;
+% clear;    
 end
