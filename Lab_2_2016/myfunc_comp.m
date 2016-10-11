@@ -1,8 +1,11 @@
-function [f, C0, C, Cab, y, SKO] = myfunc_comp ( N, M, T, kp)            
-    C0=0;    
-    for i=1:N+1 %генерация модельной функции       
-        t=2*pi*(i-1)/N;    
-        f(i)=sin(2*pi*kp*(i-1)/N); % гармоническая функция  
+function [f, C0, C, Cab, y, CKO_proc] = myfunc_comp ( N, M, T, kp)            
+    C0 = 0;    
+    f=zeros(1,N+1);
+    for i=1:N+1 %????????? ????????? ???????       
+%         f(i)=sin(2*pi*kp*(i-1)/N); % ????????????? ???????  
+%         f(i) = pi*kp*(i-1)/N
+f(i) = (2*T*(((i-1-N/2))/N));
+        C0=C0+f(i);
     end
 
     C0=C0*(2/N);
@@ -21,10 +24,10 @@ function [f, C0, C, Cab, y, SKO] = myfunc_comp ( N, M, T, kp)
     end 
     
     for k=1:M 
-        Cab(k)=abs(C(k));%коэффициенты Cab(k)- комплексные числа вида a+jb,     
+        Cab(k)=abs(C(k));%???????????? Cab(k)- ??????????? ????? ???? a+jb,     
     end
     
-    %Вычисление и отображение спектра амплитуд (конец) 
+    %?????????? ? ??????????? ??????? ???????? (?????) 
     for i=1:N+1
         y(i)=0;
         
@@ -35,11 +38,12 @@ function [f, C0, C, Cab, y, SKO] = myfunc_comp ( N, M, T, kp)
     end
 
     
-    for i=1:N+1
-       DZ(i)=abs(f(i)-real(y(i)));    
+    for i=2:N
+       dy(i)=real(y(i))-f(i);  
     end
     
-    DZ1=DZ/max(f)*100;
-    SKO=std(DZ1)    
+    dy_proc=dy/(max(f)-min(f))*100;
+    CKO=std(dy);
+    CKO_proc=std(dy_proc)%СКО в процентах
+ 
 end
-

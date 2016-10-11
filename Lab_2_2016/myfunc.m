@@ -5,14 +5,16 @@ function [ f, Sa, Sb, Sa0, Sab, y, CKO_proc] = myfunc( N, K, T, kp)
     Sa0=0;
 
     for i=1:N+1        
-        t=2*pi*(i-1)/N;
+        t=pi*(i-1)/N;
     
-        f(i)=sin(kp * t);
+%         f(i)=sin(2 * kp * t);
+%         f(i) = kp * t;
+        f(i) = (2*T*(((i-1-N/2))/N));
         Sa0=Sa0+f(i);           
     end
 
-    Sa0=Sa0/N; %вычисленный коэф. a0/2
-    %Saa0=pi^2/3 %%теоретически определенные коэф. а0/2 для функции t^2
+    Sa0=Sa0/N; %??????????? ????. a0/2
+    %Saa0=pi^2/3 %%???????????? ???????????? ????. ?0/2 ??? ??????? t^2
     for i=1:N+1
         for j=1:K
             Sa(j) = (Sa(j)+f(i)*cos((j)*2*pi*(i-1-N/2)/N));
@@ -24,7 +26,7 @@ function [ f, Sa, Sb, Sa0, Sab, y, CKO_proc] = myfunc( N, K, T, kp)
     for j=1:K
         Sa(j)=Sa(j)*(1/(N/2));
         Sb(j)=Sb(j)*(1/(N/2));
-        % Saa(j)= 4*(-1)^j/(j^2);%теоретически определенный коэф. аk для функции t^2
+        % Saa(j)= 4*(-1)^j/(j^2);%???????????? ???????????? ????. ?k ??? ??????? t^2
     end
     
     for j=1:K 
@@ -40,10 +42,9 @@ function [ f, Sa, Sb, Sa0, Sab, y, CKO_proc] = myfunc( N, K, T, kp)
     end
     
     for i=1:N+1
-        dy(i)=y(i)-f(i);%абсолютная погрешность восстановления
+        dy(i)=y(i)-f(i);%?????????? ??????????? ??????????????
     end
     dy_proc=dy/max(f)*100;
     CKO=std(dy);
-    CKO_proc=std(dy_proc)%СКО в процентах    
+    CKO_proc=std(dy_proc)%??? ? ?????????    
 end
-
